@@ -1,6 +1,8 @@
 require 'delegate'
 require 'stringio'
 
+require 'ci/reporter/duplex'
+
 module CI
   module Reporter
     # Captures $stdout or $stderr in order report it in the XML file.
@@ -18,7 +20,7 @@ module CI
 
       # Start capturing IO.
       def start
-        @assign_block.call(@captured_io)
+        @assign_block.call(Duplex.new(@captured_io, @original_io))
       end
 
       # Finalize the capture and reset to the original IO object.
