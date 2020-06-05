@@ -1,18 +1,18 @@
 module CI
   module Reporter
     class Duplex
-      def initialize(primary, secondary)
-        @primary = primary
-        @secondary = secondary
+      def initialize(captured, original)
+        @captured = captured
+        @original = original
       end
 
       def respond_to_missing?(name, include_all = true)
-        super || @primary.respond_to?(name, include_all)
+        super || @captured.respond_to?(name, include_all)
       end
 
       def method_missing(name, *args)
-        @secondary.public_send(name, *args)
-        @primary.public_send(name, *args)
+        @original.public_send(name, *args)
+        @captured.public_send(name, *args)
       end
     end
   end
