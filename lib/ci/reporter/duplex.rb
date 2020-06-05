@@ -6,14 +6,6 @@ module CI
         @secondary = secondary
       end
 
-      def __primary__
-        @primary
-      end
-
-      def __secondary__
-        @secondary
-      end
-
       def respond_to_missing?(name, include_all = true)
         super || @primary.respond_to?(name, include_all)
       end
