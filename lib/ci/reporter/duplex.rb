@@ -7,7 +7,7 @@ module CI
       end
 
       def respond_to_missing?(name, include_all = true)
-        super || @captured.respond_to?(name, include_all)
+        super || @original.respond_to?(name, include_all)
       end
 
       def method_missing(name, *args)
