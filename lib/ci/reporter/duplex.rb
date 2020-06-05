@@ -11,8 +11,10 @@ module CI
       end
 
       def method_missing(name, *args)
+        if @captured.respond_to?(name)
+          @captured.public_send(name, *args)
+        end
         @original.public_send(name, *args)
-        @captured.public_send(name, *args)
       end
     end
   end
